@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo Online - Revenda de Doces</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Ícones do FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Header / Topo -->
+    <header class="header">
+        <div class="container header-content">
+            <h1><i class="fa-solid fa-store"></i> Catálogo do Sogro</h1>
+            <p>Escolha seus produtos e faça o pedido direto pelo WhatsApp!</p>
+            
+            <!-- Barra de Pesquisa -->
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="searchInput" placeholder="Pesquisar produto (ex: Fini, Mentos, Hershey's)...">
+            </div>
+        </div>
+    </header>
+
+    <!-- Filtros por Categoria -->
+    <nav class="categories container">
+        <button class="cat-btn active" data-category="todos">Todos</button>
+        <button class="cat-btn" data-category="Chocolates">Chocolates</button>
+        <button class="cat-btn" data-category="Balas e Confeitos">Balas e Confeitos</button>
+        <button class="cat-btn" data-category="Salgadinhos">Salgadinhos</button>
+    </nav>
+
+    <!-- Vitrine de Produtos -->
+    <main class="container">
+        <div id="productGrid" class="product-grid">
+            <!-- Os produtos serão injetados dinamicamente via JavaScript -->
+        </div>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2026 Catálogo Online - Desenvolvido com programação para revenda.</p>
+            <p class="footer-contact">Dúvidas ou pedidos por telefone/WhatsApp: (11) 99999-9999</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
