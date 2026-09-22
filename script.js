@@ -1,9 +1,8 @@
 // Número de WhatsApp do seu sogro (Ex: 55 + DDD + Número sem espaços)
 const NUMERO_WHATSAPP = "5581991639777"; 
 
-// Lista completa de produtos (atualizada com os novos prints do catálogo)
+// Lista completa de produtos
 const produtos = [
-    // --- Balas e Confeitos ---
     {
         id: 1,
         nome: "Balas Fini Gelatina Tubes Melancia 12x240g",
@@ -53,8 +52,6 @@ const produtos = [
         preco: "Sob Consulta / Atacado",
         imagem: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=400&auto=format&fit=crop&q=60"
     },
-
-    // --- Chocolates ---
     {
         id: 8,
         nome: "Chocolate Hershey's Special Dark 60% 20x87g",
@@ -76,8 +73,6 @@ const produtos = [
         preco: "Sob Consulta / Atacado",
         imagem: "https://images.unsplash.com/photo-1621939514649-280e2ee25f60?w=400&auto=format&fit=crop&q=60"
     },
-
-    // --- Salgadinhos e Doces Tradicionais (Paçocas) ---
     {
         id: 11,
         nome: "Salgadinho Crokíssimo Pct Salgado 30x40g",
@@ -101,26 +96,30 @@ const produtos = [
     }
 ];
 
+// Carrinho de compras (lista de pedidos)
+let carrinho = [];
+
 // Elementos do DOM
 const productGrid = document.getElementById('productGrid');
 const searchInput = document.getElementById('searchInput');
 const categoryButtons = document.querySelectorAll('.cat-btn');
+const cartFloating = document.getElementById('cartFloating');
+const cartCount = document.getElementById('cartCount');
+const cartModal = document.getElementById('cartModal');
+const cartItemsList = document.getElementById('cartItemsList');
 
 let categoriaAtual = 'todos';
 
-// Função para renderizar os produtos na tela
+// Renderizar produtos na tela
 function exibirProdutos(listaParaExibir) {
     productGrid.innerHTML = '';
 
     if (listaParaExibir.length === 0) {
-        productGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #666; padding: 40px;">Nenhum produto encontrado.</p>';
+        productGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #718096; padding: 40px;">Nenhum produto encontrado.</p>';
         return;
     }
 
     listaParaExibir.forEach(produto => {
-        const mensagem = encodeURIComponent(`Olá! Tenho interesse no produto: *${produto.nome}* (${produto.preco}). Poderia me passar mais detalhes?`);
-        const linkWhatsapp = `https://wa.me/${NUMERO_WHATSAPP}?text=${mensagem}`;
-
         const card = document.createElement('div');
         card.className = 'product-card';
         card.innerHTML = `
@@ -131,13 +130,81 @@ function exibirProdutos(listaParaExibir) {
             <div class="product-info">
                 <h3 class="product-title">${produto.nome}</h3>
                 <div class="product-price">${produto.preco}</div>
-                <a href="${linkWhatsapp}" target="_blank" class="whatsapp-btn">
-                    <i class="fa-brands fa-whatsapp"></i> Pedir pelo WhatsApp
-                </a>
+                <button class="add-btn" onclick="adicionarAoCarrinho(${produto.id})">
+                    <i class="fa-solid fa-cart-plus"></i> Adicionar à Lista
+                </button>
             </div>
         `;
         productGrid.appendChild(card);
     });
+}
+
+// Adicionar produto ao carrinho
+function adicionarAoCarrinho(idProduto) {
+    const produtoEncontrado = produtos.find(p => p.id === idProduto);
+    if (produtoEncontrado) {
+        carrinho.push(produtoEncontrado);
+        atualizarCarrinho();
+    }
+}
+
+// Remover item do carrinho
+function removerDoCarrinho(index) {
+    carrinho.splice(index, 1);
+    atualizarCarrinho();
+}
+
+// Atualizar contador e exibição do carrinho
+function atualizarCarrinho() {
+    cartCount.textContent = carrinho.length;
+
+    if (carrinho.length > 0) {
+        cartFloating.classList.remove('hidden');
+    } else {
+        cartFloating.classList.add('hidden');
+        fecharModalCarrinho();
+    }
+
+    cartItemsList.innerHTML = '';
+    carrinho.forEach((item, index) => {
+        const row = document.createElement('div');
+        row.className = 'cart-item-row';
+        row.innerHTML = `
+            <div class="cart-item-info">
+                <span>${item.nome}</span>
+                <small>${item.preco}</small>
+            </div>
+            <button class="remove-item-btn" onclick="removerDoCarrinho(${index})">
+                <i class="fa-solid fa-trash-can"></i>
+            </button>
+        `;
+        cartItemsList.appendChild(row);
+    });
+}
+
+// Abrir e fechar modal
+function abrirModalCarrinho() {
+    cartModal.classList.remove('hidden');
+}
+
+function fecharModalCarrinho() {
+    cartModal.classList.add('hidden');
+}
+
+// Enviar pedido consolidado via WhatsApp
+function enviarPedidoWhatsApp() {
+    if (carrinho.length === 0) return;
+
+    let mensagem = "Olá! Gostaria de fazer o pedido dos seguintes produtos:\n\n";
+    carrinho.forEach((item, index) => {
+        mensagem += `${index + 1}. *${item.nome}* (${item.preco})\n`;
+    });
+    mensagem += "\nPoderia confirmar a disponibilidade e os valores totais?";
+
+    const mensagemCodificada = encodeURIComponent(mensagem);
+    const linkWhatsapp = `https://wa.me/${NUMERO_WHATSAPP}?text=${mensagemCodificada}`;
+
+    window.open(linkWhatsapp, '_blank');
 }
 
 // Filtrar por categoria
@@ -151,7 +218,7 @@ categoryButtons.forEach(button => {
     });
 });
 
-// Filtrar por texto digitado e categoria combinados
+// Filtrar por texto e categoria
 function filtrarEBuscar() {
     const termoBusca = searchInput.value.toLowerCase().trim();
 
@@ -166,5 +233,5 @@ function filtrarEBuscar() {
 
 searchInput.addEventListener('input', filtrarEBuscar);
 
-// Inicializar a página
+// Inicializar a aplicação
 exibirProdutos(produtos);

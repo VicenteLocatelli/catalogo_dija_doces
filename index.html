@@ -3,23 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo Online - Revenda de Doces</title>
+    <title>Irmãos Martins - Catálogo de Doces e Snacks</title>
     <link rel="stylesheet" href="style.css">
     <!-- Ícones do FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-    <!-- Header / Topo -->
+    <!-- Header / Banner de Destaque (Hero) -->
     <header class="header">
         <div class="container header-content">
-            <h1><i class="fa-solid fa-store"></i> Irmãos Martins </h1>
-            <p>Escolha seus produtos e faça o pedido direto pelo WhatsApp!</p>
+            <span class="badge-top"><i class="fa-solid fa-store"></i> Atacado e Varejo</span>
+            <h1>Irmãos Martins</h1>
+            <p>Os melhores produtos para revenda com os melhores preços. Monte seu pedido e feche direto pelo WhatsApp!</p>
             
             <!-- Barra de Pesquisa -->
             <div class="search-box">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="searchInput" placeholder="Pesquisar produto (ex: Fini, Mentos, Hershey's)...">
+                <input type="text" id="searchInput" placeholder="O que você procura? (ex: Fini, Mentos, Paçoquita)...">
             </div>
         </div>
     </header>
@@ -39,11 +40,38 @@
         </div>
     </main>
 
+    <!-- Botão Flutuante do Carrinho / Lista de Pedidos -->
+    <div id="cartFloating" class="cart-floating hidden" onclick="abrirModalCarrinho()">
+        <div class="cart-icon-container">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span id="cartCount">0</span>
+        </div>
+        <span>Ver Meus Pedidos</span>
+    </div>
+
+    <!-- Modal da Lista de Pedidos -->
+    <div id="cartModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-clipboard-list"></i> Sua Lista de Pedidos</h3>
+                <button class="close-modal" onclick="fecharModalCarrinho()">&times;</button>
+            </div>
+            <div id="cartItemsList" class="modal-body">
+                <!-- Itens selecionados aparecem aqui -->
+            </div>
+            <div class="modal-footer">
+                <button class="whatsapp-checkout-btn" onclick="enviarPedidoWhatsApp()">
+                    <i class="fa-brands fa-whatsapp"></i> Enviar Pedido via WhatsApp
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Rodapé -->
     <footer class="footer">
         <div class="container">
-            <p>© 2026 Catálogo Online - Desenvolvido com programação para revenda.</p>
-            <p class="footer-contact">Dúvidas ou pedidos por telefone/WhatsApp: (11) 99999-9999</p>
+            <p>© 2026 Irmãos Martins - Todos os direitos reservados.</p>
+            <p class="footer-contact">Faça já suas compras e impulsione seu negócio!</p>
         </div>
     </footer>
 
