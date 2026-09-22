@@ -129,12 +129,20 @@ main {
 
 .product-img-container {
     height: 180px;
-    background-color: #eee;
+    background-color: #f1f1f1;
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--gray);
     position: relative;
+    overflow: hidden; /* Garante que a imagem respeite as bordas arredondadas */
+}
+
+.product-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
 .product-img-container img {
