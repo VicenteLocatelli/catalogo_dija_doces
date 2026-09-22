@@ -197,7 +197,7 @@ function enviarPedidoWhatsApp() {
 
     let mensagem = "Olá! Gostaria de fazer o pedido dos seguintes produtos:\n\n";
     carrinho.forEach((item, index) => {
-        mensagem += `${index + 1}. *${item.nome}* (${item.preco})\n`;
+        mensagem += `${index + 1}. *${item.nome}*\n`;
     });
     mensagem += "\nPoderia confirmar a disponibilidade e os valores totais?";
 
