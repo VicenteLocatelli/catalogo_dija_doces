@@ -1,5 +1,5 @@
 // Número de WhatsApp do seu sogro (Ex: 55 + DDD + Número sem espaços)
-const NUMERO_WHATSAPP = "5581919639777"; 
+const NUMERO_WHATSAPP = "5581991639777"; 
 
 // Lista completa de produtos (atualizada com os novos prints do catálogo)
 const produtos = [
