@@ -1,80 +1,168 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Irmãos Martins - Catálogo de Doces e Snacks</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- Ícones do FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Catálogo Irmãos Martins: doces, chocolates, balas, biscoitos, snacks e muito mais. Monte seu pedido e envie pelo WhatsApp.">
+  <meta name="theme-color" content="#17181b">
+  <meta property="og:title" content="Irmãos Martins | Catálogo">
+  <meta property="og:description" content="Encontre produtos por marca ou categoria e monte seu pedido pelo WhatsApp.">
+  <meta property="og:type" content="website">
+  <title>Irmãos Martins | Catálogo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <!-- Header / Banner de Destaque (Hero) -->
-    <header class="header">
-        <div class="container header-content">
-            <span class="badge-top"><i class="fa-solid fa-store"></i> Atacado e Varejo</span>
-            <h1>Irmãos Martins</h1>
-            <p>Os melhores produtos para revenda com os melhores preços. Monte seu pedido e feche direto pelo WhatsApp!</p>
-            
-            <!-- Barra de Pesquisa -->
-            <div class="search-box">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="searchInput" placeholder="O que você procura? (ex: Fini, Mentos, Paçoquita)...">
-            </div>
-        </div>
-    </header>
-
-    <!-- Filtros por Categoria -->
-    <nav class="categories container">
-        <button class="cat-btn active" data-category="todos">Todos</button>
-        <button class="cat-btn" data-category="Chocolates">Chocolates</button>
-        <button class="cat-btn" data-category="Balas e Confeitos">Balas e Confeitos</button>
-        <button class="cat-btn" data-category="Salgadinhos">Salgadinhos</button>
-    </nav>
-
-    <!-- Vitrine de Produtos -->
-    <main class="container">
-        <div id="productGrid" class="product-grid">
-            <!-- Os produtos serão injetados dinamicamente via JavaScript -->
-        </div>
-    </main>
-
-    <!-- Botão Flutuante do Carrinho / Lista de Pedidos -->
-    <div id="cartFloating" class="cart-floating hidden" onclick="abrirModalCarrinho()">
-        <div class="cart-icon-container">
-            <i class="fa-solid fa-cart-shopping"></i>
-            <span id="cartCount">0</span>
-        </div>
-        <span>Ver Meus Pedidos</span>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#">
+        <span class="brand-mark">IM</span>
+        <span><strong>Irmãos Martins</strong><small>Atacado e Varejo</small></span>
+      </a>
+      <button class="cart-button" id="openCartBtn" type="button">
+        <span>🛒</span><span class="cart-label">Meu pedido</span><b id="cartCount">0</b>
+      </button>
     </div>
+  </header>
 
-    <!-- Modal da Lista de Pedidos -->
-    <div id="cartModal" class="modal-overlay hidden">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3><i class="fa-solid fa-clipboard-list"></i> Sua Lista de Pedidos</h3>
-                <button class="close-modal" onclick="fecharModalCarrinho()">&times;</button>
-            </div>
-            <div id="cartItemsList" class="modal-body">
-                <!-- Itens selecionados aparecem aqui -->
-            </div>
-            <div class="modal-footer">
-                <button class="whatsapp-checkout-btn" onclick="enviarPedidoWhatsApp()">
-                    <i class="fa-brands fa-whatsapp"></i> Enviar Pedido via WhatsApp
-                </button>
-            </div>
+  <main>
+    <section class="hero">
+      <div class="container hero-content">
+        <div class="hero-copy">
+          <span class="eyebrow">CATÁLOGO IRMÃOS MARTINS</span>
+          <h1>Tudo para deixar seu estoque <em>mais gostoso.</em></h1>
+          <p>Doces, chocolates, balas, biscoitos, snacks e muito mais. Encontre seus produtos e monte seu pedido para enviar pelo WhatsApp.</p>
+
+          <label class="hero-search">
+            <span>⌕</span>
+            <input id="homeSearch" type="search" placeholder="Buscar produto ou marca..." autocomplete="off">
+            <button id="clearHomeSearch" type="button" aria-label="Ir para a busca">→</button>
+          </label>
+
+          <button class="primary-btn" id="heroCatalogBtn" type="button">Explorar catálogo <span>↓</span></button>
         </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <div class="hero-orbit orbit-one"></div>
+          <div class="hero-orbit orbit-two"></div>
+          <div class="hero-card card-one">🍫</div>
+          <div class="hero-card card-two">🍭</div>
+          <div class="hero-card card-three">🍪</div>
+          <div class="hero-center"><span>IM</span><small>DOCES<br>& SNACKS</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="quick-section container">
+      <div class="section-heading">
+        <div><span class="eyebrow">ENCONTRE MAIS RÁPIDO</span><h2>Como você quer procurar?</h2></div>
+      </div>
+      <div class="quick-grid">
+        <button class="quick-card" data-quick="marca">
+          <span class="quick-icon">🏷️</span><strong>Por marca</strong><small>Encontre seus fabricantes favoritos</small>
+        </button>
+        <button class="quick-card" data-quick="categoria">
+          <span class="quick-icon">🍬</span><strong>Por categoria</strong><small>Veja os produtos por tipo</small>
+        </button>
+        <button class="quick-card" data-quick="catalogo">
+          <span class="quick-icon">🛍️</span><strong>Ver catálogo</strong><small>Explore todos os produtos</small>
+        </button>
+      </div>
+    </section>
+
+    <section class="brands-section container" id="brands">
+      <div class="section-heading">
+        <div><span class="eyebrow">MARCAS</span><h2>Encontre por marca</h2></div>
+      </div>
+      <div class="brand-grid" id="brandGrid"></div>
+    </section>
+
+    <section class="catalog-section container" id="catalog">
+      <div class="section-heading catalog-heading">
+        <div><span class="eyebrow">CATÁLOGO</span><h2>Escolha seus produtos</h2></div>
+        <span class="result-count" id="resultCount"></span>
+      </div>
+
+      <div class="search-row">
+        <label class="search-box">
+          <span>⌕</span>
+          <input id="searchInput" type="search" placeholder="Buscar por produto, marca ou sabor..." autocomplete="off">
+          <button id="clearSearch" class="hidden" type="button" aria-label="Limpar busca">×</button>
+        </label>
+        <button class="filter-btn" id="filterBtn" type="button">☰ Filtros</button>
+      </div>
+
+      <div class="category-scroller" id="categoryScroller" aria-label="Categorias"></div>
+      <div class="active-filters" id="activeFilters"></div>
+      <div class="products-grid" id="productsGrid"></div>
+
+      <div class="empty-state hidden" id="emptyState">
+        <div>🔎</div><h3>Nenhum produto encontrado</h3><p>Tente outro termo ou limpe os filtros.</p>
+        <button class="secondary-btn" id="clearFiltersBtn" type="button">Limpar filtros</button>
+      </div>
+
+      <button class="load-more" id="loadMore" type="button">Carregar mais produtos</button>
+    </section>
+
+    <section class="how-section">
+      <div class="container">
+        <div class="section-heading">
+          <div><span class="eyebrow">COMO FUNCIONA</span><h2>Monte seu pedido em 3 passos</h2></div>
+        </div>
+        <div class="steps">
+          <div class="step"><b>01</b><strong>Escolha</strong><p>Encontre os produtos por busca, marca ou categoria.</p></div>
+          <div class="step"><b>02</b><strong>Monte</strong><p>Adicione os produtos e ajuste as quantidades no seu pedido.</p></div>
+          <div class="step"><b>03</b><strong>Envie</strong><p>Envie sua lista organizada diretamente pelo WhatsApp.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta">
+      <div class="container">
+        <span class="eyebrow">PRONTO PARA COMEÇAR?</span>
+        <h2>Já sabe o que procura?</h2>
+        <p>Encontre seus produtos e monte seu pedido.</p>
+        <button class="primary-btn" id="exploreCatalogBtn" type="button">Explorar catálogo →</button>
+      </div>
+    </section>
+  </main>
+
+  <div class="cart-backdrop hidden" id="cartBackdrop"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Meu pedido" aria-hidden="true">
+    <div class="cart-header">
+      <div><span class="eyebrow">SEU PEDIDO</span><h2>Minha lista</h2></div>
+      <button class="icon-btn" id="closeCartBtn" type="button" aria-label="Fechar">×</button>
     </div>
+    <div class="cart-body" id="cartBody"></div>
+    <div class="cart-footer">
+      <div class="cart-total"><span>Total</span><strong id="cartTotal">Consulte</strong></div>
+      <button class="whatsapp-btn" id="checkoutBtn" type="button">Enviar pedido pelo WhatsApp <span>↗</span></button>
+      <button class="continue-btn" id="continueShoppingBtn" type="button">Continuar comprando</button>
+    </div>
+  </aside>
 
-    <!-- Rodapé -->
-    <footer class="footer">
-        <div class="container">
-            <p>© 2026 Irmãos Martins - Todos os direitos reservados.</p>
-            <p class="footer-contact">Faça já suas compras e impulsione seu negócio!</p>
-        </div>
-    </footer>
+  <div class="modal-backdrop hidden" id="filterBackdrop"></div>
+  <section class="filter-sheet" id="filterSheet" aria-label="Filtros">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header"><h2>Filtrar produtos</h2><button class="icon-btn" id="closeFilterBtn" type="button">×</button></div>
+    <label class="field-label" for="brandSelect">Marca</label>
+    <select id="brandSelect"><option value="">Todas as marcas</option></select>
+    <label class="field-label" for="sortSelect">Ordenar</label>
+    <select id="sortSelect">
+      <option value="default">Mais relevantes</option><option value="name">Nome A–Z</option><option value="brand">Marca A–Z</option>
+    </select>
+    <button class="primary-btn" id="applyFilterBtn" type="button">Aplicar filtros</button>
+  </section>
 
-    <script src="script.js"></script>
+  <nav class="mobile-nav">
+    <a href="#"><span>⌂</span><small>Início</small></a>
+    <button id="mobileSearchBtn" type="button"><span>⌕</span><small>Buscar</small></button>
+    <button id="mobileCartBtn" type="button"><span>🛒</span><small>Pedido</small><b id="mobileCartCount">0</b></button>
+  </nav>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
 </body>
 </html>
